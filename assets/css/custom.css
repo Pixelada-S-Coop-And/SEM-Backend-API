@@ -1,0 +1,258 @@
+body *{
+    font-family: "Lato", sans-serif;
+}
+#filter-list{
+    margin-bottom: 30px;
+}
+
+
+/* LISTA DE JUEGOS */
+#lista-items{
+    max-width: 100%;
+    width: 1200px;
+}
+
+#lista-items .item{
+   padding: 20px; 
+   font-size: 13px;
+}
+
+.hidden-text{
+    color: transparent !important; 
+    font-size: 0 !important;
+}
+#lista-items .item .imagen-item{
+    background: #000 center center no-repeat; 
+    background-size: auto 110%; 
+    display: block; 
+    width: 100%;
+    height: 170px;
+    border: solid 4px #222222;
+    border-radius: 10px;
+}
+
+#lista-items .item .fecha-item, #lista-items .item .acciones-item{
+    width:100%;
+    text-align: center;
+    padding: 5px 0;
+}
+
+#lista-items .item i.fas{
+    font-size: 18px;
+    color: #222222;
+}
+
+#lista-items .item .fecha-item i.fas{
+    margin: 0 7px 0 0;
+}
+
+#lista-items .item i.fas:hover{
+    color: #333;
+}
+
+#sortable > div{
+    cursor: grab !important;
+}
+
+a.btn{
+    cursor: pointer;
+}
+
+a.btn i.fas{
+    color: #fff; 
+}
+
+.d-lg-block.btn-primary  {
+	display: inline-block !important;
+}
+
+#lista-items .item a.link-editar{
+    margin: 10px 10px;
+}
+
+.paginacion-lista{
+    display: block; margin: 20px 0;
+}
+
+.page-content h1.display-5 {
+	font-size: 25px;
+}
+
+.paginacion-lista a.btn-primary.active{ background: #444; border-color: #444; }
+
+#lista-items .item a.link-eliminar{
+    margin-left: 10px;
+}
+
+#lista-items .item .fa-calendar-alt{
+    margin-left:10px;
+}
+#reglas-editor .ql-editor p{ margin-bottom:10px; }
+#lista-items .item h2 {
+	font-size: 14px;
+	text-align: center;
+    margin: 12px auto 5px;
+    color: #333;
+}
+
+#reglas-editor .ql-editor p.ql-align-justify, .ql-align-justify{ text-align: justify !important; }
+.ql-align-center{ text-align: center; }
+#icono-usuario{ font-size: 18px;	border-radius: 100%;	background: #666;	padding: 5px;	color: #fff;  }
+
+#lista-items .item h2:hover{
+    color: #222222;
+}
+
+#lista-items .item:hover .imagen-item{
+    border-color: #444;
+}
+
+#datos-item, #datos-form{
+    max-width: 100%;
+    width: 1000px;
+    box-sizing:border-box;
+    padding: 15px;
+}
+
+#field-duracion .input-group{
+   width: 150px; 
+}
+
+.btn-primary{
+    background-color: #222222;
+    border-color: #222222;
+}
+
+.btn-primary:hover, .btn-primary:focus{
+    background-color: #444;
+}
+
+#datos-item #fecha{ 
+    width: 400px;
+    max-width:100%;
+}
+
+#datos-item .form-group{
+    margin-bottom:40px;
+}
+
+#datos-item #field-fecha.form-group{
+    margin-bottom:30px;
+}
+
+#datos-item #field-imagen.form-group{
+    margin-bottom:38px;
+}
+
+.dropify-wrapper {
+	height: 263px;
+}
+
+#field-audio .dropify-wrapper {
+	height: 90px;
+}
+
+#field-tiempo-ms select{
+    width: 80px; display: inline-block;
+
+}
+
+.datepicker table tr td.active.active, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled.disabled, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover.active, .datepicker table tr td.active.disabled:hover.disabled, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td .active.disabled:hover[disabled], .datepicker table tr td .active.disabled[disabled], .datepicker table tr td .active:active, .datepicker table tr td .active:hover, .datepicker table tr td .active:hover.active, .datepicker table tr td .active:hover.disabled, .datepicker table tr td .active:hover:active, .datepicker table tr td .active:hover:hover, .datepicker table tr td .active:hover[disabled], .datepicker table tr td .active[disabled], .datepicker table tr td span.active.active, .datepicker table tr td span.active.disabled, .datepicker table tr td span.active.disabled.active, .datepicker table tr td span.active.disabled.disabled, .datepicker table tr td span.active.disabled:active, .datepicker table tr td span.active.disabled:hover, .datepicker table tr td span.active.disabled:hover.active, .datepicker table tr td span.active.disabled:hover.disabled, .datepicker table tr td span.active.disabled:hover:active, .datepicker table tr td span.active.disabled:hover:hover, .datepicker table tr td span.active.disabled:hover[disabled], .datepicker table tr td span.active.disabled[disabled], .datepicker table tr td span.active:active, .datepicker table tr td span.active:hover, .datepicker table tr td span.active:hover.active, .datepicker table tr td span.active:hover.disabled, .datepicker table tr td span.active:hover:active, .datepicker table tr td span.active:hover:hover, .datepicker table tr td span.active:hover[disabled], .datepicker table tr td span.active[disabled], .datepicker table tr td.today, .datepicker table tr td.today.disabled, .datepicker table tr td.today.disabled:hover, .datepicker table tr td.today:hover{
+    background-color: #222222 !important;
+    color: #fff !important;
+    font-weight: normal;
+}
+
+.datepicker table tr td.today, .datepicker table tr td.today.disabled, .datepicker table tr td.today.disabled:hover, .datepicker table tr td.today:hover{
+    background: #fff !important;
+    color: #222222 !important;
+    font-weight: bold;
+}
+.modal-dialog {
+	max-width: 800px;
+}
+nav#editar-nav a{ font-size: 20px; color: #444; }
+nav#editar-nav a.active{ font-weight: bold; color: #222222; }
+nav#editar-nav i{ color: #222222; }
+nav#editar-nav a:hover{ color: #222222; }
+nav#editar-nav a.btn-primary{ display: inline-block !important; margin: 20px 0 0; color: #fff; font-size: 15px; }
+nav#editar-nav a.btn-primary i{ color: #fff; }
+
+.tabla-items td.pista{ color:#222222; font-weight: bold;  }
+.tabla-items th.tiempo{ font-size: 18px; font-weight: bold;  }
+.tabla-items td.acciones a i{ font-size: 18px;  color:#222222; margin: 0 5px; }
+.tabla-items td.mensaje .imagen-mensaje{ width: 120px; height: 100px; border-radius: 10px; cursor: pointer; display: block; float: left; margin-right: 20px; margin-bottom: 10px; background-size: auto 100%; background-repeat: no-repeat; background-position: center center; background-color: #444; }
+
+.tabla-items td.mensaje audio {
+	display: block;
+	margin: 10px 0;
+	height: 30px;
+	border-radius: 5px;
+}
+.tabla-items th.correcta{
+     color: #222222;
+}
+#boton-nuevo { color: #fff; display: inline-block !important; margin: 0 0 20px !important; }
+
+.clear{ clear:both; }
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::before, table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::before {
+background-color: #222222;
+}
+.page-item.active .page-link {	background-color: #222222;	border-color: #222222; }
+
+.custom-control-input:checked ~ .custom-control-label::before {
+	color: #fff;
+	border-color: #222222;
+	background-color: #222222;
+}
+.tabla-ranking-wrap{ display: block; width: 100%; height: 500px; overflow: auto; }
+
+a { color: #222222; }
+
+h2.display-6{ font-size: 20px; color: #222222;  margin-bottom:20px; }
+h2.display-6.inline{ display: inline-block;}
+.rankings .filtro-fecha{ margin-left:20px; float: right;  }
+.rankings .filtro-fecha, .rankings .filtro-fecha label, .rankings .filtro-fecha input{ display: inline-block;  }
+.rankings .filtro-fecha input{ width:90px; margin-left:10px; text-align: center; padding:0 !important; } 
+
+.notificaciones .link-eliminar i{ font-size: 18px; }
+
+#login-page.bg-primary{ background-color: #eee !important; }
+
+#login-page #autismo-logo-login{ background: url(../images/logo.png) center center no-repeat; background-size: 300px; background-color: #eee; }
+    
+#login-page #boton-acceder{ background:#222222; border-color: #222222; }
+#login-page #boton-acceder:hover{ background: #fff !important; color:#222222; border-color: #222222; }
+
+#titulo-lista-items{ display: inline-block; margin-right: 30px; }
+#settings-wrap{
+    width: 400px;
+    max-width:100%;
+}
+
+#list-filter select.form-control{
+    width:200px;
+    max-width:100%;
+    display: inline-block;
+}
+#logo-menu{
+    background: #eee;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 20px;
+}
+
+@media (max-width:600px){
+    .tabla-items th, .tabla-items td{
+        display: block !important;
+    }
+
+    .tabla-items tr{
+        border-top: solid 4px #444 !important;
+    }
+
+    .tabla-items thead{
+        display: none;
+    }
+}
