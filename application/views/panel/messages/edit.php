@@ -36,17 +36,19 @@ if(!empty($msg)) echo '<br /><br /><div class="alert alert-info">'.$msg.'</div>'
                         endif; ?>
                     </div>
                 </div>
-                
+                <?php if(intval($message['time']) <= time()): ?>  <p class="form-comment"><strong>NOTA: Las fechas no se puede editar una vez ha sido publicada la notificación</strong> </p> <?php  endif; ?> 
+ 
                 <div class="form-group">
                     <label for="time">Fecha y hora de publicación *</label>
-                    <input type="text" id="time" name="time" class="datetime-input form-control required" data-provide="datetimepicker" value="<?php echo date('d/m/Y H:i:s', intval($message['time'])); ?>">
+                    <input type="text" id="time" name="time" class="datetime-input form-control required   <?php if(intval($message['time']) <= time()): ?> noeditable <?php  endif; ?> " data-provide="datetimepicker"  <?php if(intval($message['time']) <= time()): ?> readonly <?php  endif; ?> value="<?php echo date('d/m/Y H:i:s', intval($message['time'])); ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="expiration_time">Fecha y hora de caducidad</label>
-                    <input type="text" id="expiration_time" name="expiration_time" class="datetime-input form-control" data-provide="datetimepicker" value="<?php echo date('d/m/Y H:i:s', intval($message['expiration_time'])); ?>">
+                    <input type="text" id="expiration_time" name="expiration_time" class="datetime-input form-control   <?php if(intval($message['time']) <= time()): ?>  noeditable <?php  endif; ?> " data-provide="datetimepicker"   <?php if(intval($message['time']) <= time()): ?> readonly <?php  endif; ?>  value="<?php echo date('d/m/Y H:i:s', intval($message['expiration_time'])); ?>">
                 </div>
 
+                
                 <div id="field-subject" class="form-group">
                     <label for="subject">Asunto *</label>
                     <input type="text" id="subject" name="subject" class="form-control required" value="<?php echo $message['subject']; ?>" placeholder=""/>
@@ -160,8 +162,9 @@ if(!empty($msg)) echo '<br /><br /><div class="alert alert-info">'.$msg.'</div>'
 
 
 <script>
-jQuery(function($) {
-    $('.datetime-input').datetimepicker({
+$(document).ready(function() {
+
+    $('input.datetime-input').datetimepicker({
         format: 'DD/MM/YYYY HH:mm:ss',sideBySide: true,
     });
 

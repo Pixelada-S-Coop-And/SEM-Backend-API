@@ -55,7 +55,7 @@ if(!empty($msg)) echo '<br /><br /><div class="alert alert-info">'.$msg.'</div>'
                 <td><a href="<?php echo site_url('admin/messages/edit/'.$message['id']); ?>"><strong><?php echo $message['subject']; ?></strong></a></td>
                 <td><?php echo $message['target']; ?></td>
                 <td style="text-align: right;">
-                    <a class="link-editar" href="<?php echo site_url('admin/messages/edit/'.$message['id']); ?>"><i class="fas fa-edit"></i></a> &nbsp; 
+                  <a class="link-editar" href="<?php echo site_url('admin/messages/edit/'.$message['id']); ?>"><i class="fas fa-edit"></i></a> &nbsp;   
                     <a class="link-eliminar" onclick="return confirm('¿Deseas eliminar esta notificación?')" href="<?php echo site_url('admin/messages/delete/'.$message['id']); ?>"><i class="fas fa-trash-alt"></i></a>
                 </td>
             </tr>
@@ -114,6 +114,18 @@ var table = $('#tabla-messages').DataTable({
 
     $('.pagination .paginate_button a').click(function(e){
         e.preventDefault();
+
+        var n_page = parseInt($('.pagination .paginate_button.active a').html());
+        if(parseInt(n_page)<1) n_page = 1; 
+
+        if($(this).parent().hasClass('next')){
+            n_page = n_page + 1;
+        }else if($(this).parent().hasClass('previous')){
+            n_page = n_page - 1;
+            if(n_page<1) n_page = 1;
+        }else{
+            n_page = parseInt($(this).html());
+        }
         window.location.href="<?php echo $url_base; ?>?<?php 
         if(isset($_GET['page'])){ 
             unset($_GET['page']); 
@@ -131,8 +143,9 @@ var table = $('#tabla-messages').DataTable({
             $param.='&'; 
         } 
         echo $param; 
-        ?>page="+$(this).attr('data-dt-idx');
+        ?>page="+n_page;
     });
+
 
     $('#tabla-messages_length select').change(function(e){
         e.preventDefault();

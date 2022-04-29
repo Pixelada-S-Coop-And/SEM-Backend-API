@@ -118,6 +118,18 @@ var table = $('#tabla-affiliates').DataTable({
 
     $('.pagination .paginate_button a').click(function(e){
         e.preventDefault();
+
+        var n_page = parseInt($('.pagination .paginate_button.active a').html());
+        if(parseInt(n_page)<1) n_page = 1; 
+
+        if($(this).parent().hasClass('next')){
+            n_page = n_page + 1;
+        }else if($(this).parent().hasClass('previous')){
+            n_page = n_page - 1;
+            if(n_page<1) n_page = 1;
+        }else{
+            n_page = parseInt($(this).html());
+        }
         window.location.href="<?php echo $url_base; ?>?<?php 
         if(isset($_GET['page'])){ 
             unset($_GET['page']); 
@@ -135,7 +147,7 @@ var table = $('#tabla-affiliates').DataTable({
             $param.='&'; 
         } 
         echo $param; 
-        ?>page="+$(this).attr('data-dt-idx');
+        ?>page="+n_page;
     });
 
     $('#tabla-affiliates_length select').change(function(e){
