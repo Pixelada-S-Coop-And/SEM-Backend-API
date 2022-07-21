@@ -1,234 +1,199 @@
-<h1 class="display-5">Afiliados/as</h1>
+<h1 class="display-5">Editar afiliado/a</h1>
 <hr />
-<a id="boton-nuevo" href="<?php echo site_url('admin/affiliates/new'); ?>" style="color:#fff;" class="btn btn-primary d-none d-lg-block ml-2">
-    Nuevo afiliado
-</a>
-<?php $msg = $this->session->flashdata('action_ok');  
-    if(!empty($msg)) echo '<br /><br /><div class="alert alert-info">'.$msg.'</div>';
+<?php $back = $this->session->userdata('affiliates_back_link');  ?>
+<a href="<?php if(empty($back)){  echo site_url('admin/affiliates'); }else{ echo $back; } ?>" style="color:#fff;" class="btn btn-primary d-none d-lg-block ml-2">
+    <i class="feather-arrow-left"></i> Volver al listado
+</a> 
+<?php    $msg = $this->session->flashdata('action_ok');  
+
+if(!empty($msg)) echo '<br /><br /><div class="alert alert-info">'.$msg.'</div>';
 ?>
-<div id="list-filter">
-    <form id="form-filter" method="get" enctype="multipart/form-data" action=""> 
-    <div id="filter-section_id-group" class="form-group">
-        <label for="name">Filtrar por sección</label>
-        <select id="filter-section_id" name="section_id" class="form-control">
-            <?php if($role==0): ?><option value="">Todas las secciones</option><?php endif; ?>
-            <?php 
-            if(!empty($sections)&&is_array($sections)):
-                foreach($sections as $section):
-                    if($role==0||$section['id']==$current_user_section_id):
-                        echo '<option value="'.$section['id'].'"';
-                        if(!empty($_GET['section_id'])&&intval($section['id'])==intval($_GET['section_id'])) echo 'selected';
-                        echo '>'.$section['name'].'</option>';
-                    endif;
-                endforeach;
-            endif;
-            ?>
-        </select>
-    </div>
-        </form>
+<hr />
+<div id="datos-affiliate">
+    <form id="form-affiliate" method="post" enctype="multipart/form-data" action=""> 
+        <div class="row"> 
+            <div class="col-md-6">    
+                <div id="field-name" class="form-group">
+                    <label for="name">Clave</label>
+                    <input type="text" readonly class="form-control" style="width:200px; display: inline-block;" value="<?php echo $pass; ?>" placeholder=""/><a href="<?php echo site_url('admin/affiliates/send-pass/'.$affiliate['id']); ?>" class="btn btn-primary d-none d-lg-block ml-2">Enviar clave</a> <?php if($affiliate['has_session']): ?><a href="<?php echo site_url('admin/affiliates/logout/'.$affiliate['id']); ?>" class="btn btn-primary d-none d-lg-block ml-2">Cerrar sesión</a><?php endif; ?>
+                </div>
+                <hr />
+                <div id="field-number" class="form-group">
+                    <label>Nº de afiliado/a</label><br />
+                    <input type="text" id="number" name="number" class="form-control input_number required" value="<?php echo $affiliate['number']; ?>" placeholder=""/>
+                </div>
+                
+                <div id="field-active" class="form-group">
+                    <label>Activo</label><br />
+                    <input type="checkbox" <?php if($affiliate['active']==1): echo 'checked'; endif; ?> id="active" name="active" data-toggle="switchery" data-color="#222222"/>
+                </div>
+
+                <div id="field-section_id" class="form-group">
+                    <label for="section_id">Sección *</label>
+                   
+                    <select id="section_id" name="section_id" class="form-control required">
+                        <option value="">Selecciona una sección</option>
+                        <?php 
+                        if(!empty($sections)&&is_array($sections)):
+                            foreach($sections as $section):
+                                echo '<option value="'.$section['id'].'"';
+                                if(intval($section['id'])==intval($affiliate['section_id'])) echo 'selected';
+                                echo '>'.$section['name'].'</option>';
+                            endforeach;
+                        endif;
+                        ?>
+                    </select>
+                </div>
+                
+                <div id="field-name" class="form-group">
+                    <label for="name">Nombre *</label>
+                    <input type="text" id="name" name="name" class="form-control required" value="<?php echo $affiliate['name']; ?>" placeholder=""/>
+                </div>
+
+                <div id="field-surnames" class="form-group">
+                    <label for="surnames">Apellidos *</label>
+                    <input type="text" id="surnames" name="surnames" class="form-control required" value="<?php echo $affiliate['surnames']; ?>" placeholder=""/>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_card">DNI *</label>
+                    <input type="text" class="form-control required" name="id_card" id="id_card" placeholder="" value="<?php echo $affiliate['id_card']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="birthdate">Fecha de nacimiento *</label>
+                    <input type="text" id="birthdate" name="birthdate" class="date-input form-control required" data-provide="datepicker" value="<?php if(!empty($affiliate['birthdate'])) echo date('d/m/Y', strtotime($affiliate['birthdate'])); ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="affiliation_date">Fecha de afiliación *</label>
+                    <input type="text" id="affiliation_date" name="affiliation_date" class="date-input form-control required" data-provide="datepicker" value="<?php if(!empty($affiliate['affiliation_date'])) echo date('d/m/Y', strtotime($affiliate['affiliation_date'])); ?>">
+                </div>
+               
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" class="form-control required" name="email" id="email" placeholder="" value="<?php echo $affiliate['email']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Teléfono *</label>
+                    <input type="text" class="form-control input_number required" name="phone" id="phone" placeholder="" value="<?php echo $affiliate['phone']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="job">Trabajo</label>
+                    <input type="text" class="form-control" name="job" id="job" placeholder="" value="<?php echo $affiliate['job']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="job_position">Puesto de trabajo</label>
+                    <input type="text" class="form-control" name="job_position" id="job_position" placeholder="" value="<?php echo $affiliate['job_position']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Dirección</label>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="" value="<?php echo $affiliate['address']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Código Postal</label>
+                    <input type="text" class="form-control input_number" name="zipcode" id="zipcode" placeholder="" value="<?php echo $affiliate['zipcode']; ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Localidad</label>
+                    <input type="text" class="form-control" name="location" id="location" placeholder="" value="<?php echo $affiliate['location']; ?>">
+                </div>
+                
+                <div id="field-province_id" class="form-group">
+                    <label for="province_id">Provincia</label>
+                   
+                    <select id="province_id" name="province_id" class="form-control">
+                        <option value="">Selecciona una provincia</option>
+                        <?php 
+                        if(!empty($provinces)&&is_array($provinces)):
+                            foreach($provinces as $province):
+                                echo '<option value="'.$province['id'].'"';
+                                if(intval($province['id'])==intval($affiliate['province_id'])) echo 'selected';
+                                echo '>'.$province['name'].'</option>';
+                            endforeach;
+                        endif;
+                        ?>
+                    </select>
+                </div>
+                
+               
+                <p>* Campos obligatorios</p>
+                <div id="msj" class="card-title"></div>
+            </div>
+            
+        </div>
+        
+        <button id="boton-guardar" type="button" class="btn btn-primary mb-2">Guardar</button>
+    </form>
 </div>
-<div id="lista-affiliates" class="row">
-<?php //print_array($affiliates); ?>
-<div class="col-xl-10 col-lg-12 col-12">
-    <table id="tabla-affiliates" class="table dt-responsive nowrap">
-        <thead>
-            <tr>
-                <th id="col-0" data-priority="1">ID</th>
-                <th id="col-1" data-priority="1">Nº Afiliado/a</th>
-                <th id="col-2" data-priority="1">Nombre</th>
-                <th id="col-3" data-priority="3">DNI</th>
-                <th id="col-4" data-priority="3">Sección sindical</th>
-                <th id="col-5" data-priority="3">Fecha de afiliación</th>
-                <th id="col-6" data-priority="3">Activo</th>
-                <th id="col-7" data-priority="1"></th>
-            </tr>
-        </thead>
-    
-    
-        <tbody>
-        <?php $i=0; if(!empty($affiliates)): 
-            foreach($affiliates as $affiliate): $i++; ?>
-            <tr>
-                <td data-priority="1"><?php echo $affiliate['id']; ?></td>
-                <td data-priority="1"><?php echo $affiliate['number']; ?></td>
-                <td data-priority="1"><a href="<?php echo site_url('admin/affiliates/edit/'.$affiliate['id']); ?>"><strong><?php echo $affiliate['name'].' '.$affiliate['surnames']; ?></strong></a></td>
-                <td data-priority="3"><?php echo $affiliate['id_card']; ?></td>
-                <td data-priority="3"><?php echo $affiliate['section_name']; ?></td>
-                <td data-priority="3"><span class="hidden-text"><?php echo $affiliate['affiliation_date']; ?></span><?php echo date('d/m/Y', strtotime($affiliate['affiliation_date'])); ?></td>
-                <td data-priority="3"><?php echo (empty($affiliate['active']))? 'Inactivo' : 'Activo';  ?></td>
-                <td data-priority="1" style="text-align: right;">
-                    <?php if($affiliate['has_session']): ?><a href="<?php echo site_url('admin/affiliates/logout/'.$affiliate['id']).'?'.$_SERVER['QUERY_STRING']; ?>" class="btn btn-primary d-none d-lg-block ml-2">Cerrar sesión</a><?php endif; ?> &nbsp; 
-                    <a href="<?php echo site_url('admin/affiliates/send-pass/'.$affiliate['id']).'?'.$_SERVER['QUERY_STRING']; ?>" class="btn btn-primary d-none d-lg-block ml-2">Enviar clave</a> &nbsp; 
-                    <a class="link-editar" href="<?php echo site_url('admin/affiliates/edit/'.$affiliate['id']); ?>"><i class="fas fa-edit"></i></a> &nbsp; 
-                    <a class="link-eliminar" onclick="return confirm('¿Deseas eliminar este afiliado?')" href="<?php echo site_url('admin/affiliates/delete/'.$affiliate['id']); ?>"><i class="fas fa-trash-alt"></i></a>
-                </td>
-            </tr>
-        <?php endforeach;  else: echo '<tr><td colspan="7">No se encuentran afiliados/as</td></tr>'; 
-        endif;?>
-        </tbody>
-    </table>
-</div>
-</div>
+
 
 <script>
-
-<?php if($i>0): ?>
-var table = $('#tabla-affiliates').DataTable({
-        "language": {
-            "paginate": {
-                "previous": "<",
-                "next": ">"
-            }
-        },
-        "scrollX": true,
-        "autoWidth": false,
-
-
-    <?php if(isset($_GET['orderby'])): ?>
-            "order": [[ <?php echo intval($_GET['orderby']); ?>, "<?php if(!empty($_GET['order'])&&$_GET['order']=='desc'): echo $_GET['order']; else: echo 'asc'; endif; ?>" ]],
-    <?php endif;  ?>
-
-        "pageLength" : 25,
-        "drawCallback": function () {
-            $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-        }
+jQuery(function($) {
+   
+    $('.date-input').datepicker({
+        format: 'dd/mm/yyyy',sideBySide: true, language: 'es', weekStart: 1
     });
 
-    <?php $url_base = site_url('/admin/affiliates'); ?>
-    <?php if(!empty($_GET['search'])): ?>
-    $('#tabla-affiliates_filter input.form-control').val('<?php echo $_GET['search']; ?>');
-    $('#tabla-affiliates_filter input.form-control').trigger('keyup');
-    <?php endif ?>
-
-    <?php if(!empty($_GET['p_size'])): ?>
-    table.page.len(<?php echo intval($_GET['p_size']); ?>).draw();
-    <?php endif; ?>
-
-    <?php if(!empty($_GET['page'])): ?>
-    table.page(<?php echo intval($_GET['page']) - 1; ?>).draw('page');
-    <?php endif; ?> 
-
-    $(document).ready(function(){
-
-  
-    
-    $('#filter-section_id').change(function(){
-        window.location.href="<?php echo $url_base; ?>?section_id="+$(this).val();
+    $('.input_number').bind('keyup paste', function(){
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
 
-    $('.pagination .paginate_button a').click(function(e){
-        e.preventDefault();
-
-        var n_page = parseInt($('.pagination .paginate_button.active a').html());
-        if(parseInt(n_page)<1) n_page = 1; 
-
-        if($(this).parent().hasClass('next')){
-            n_page = n_page + 1;
-        }else if($(this).parent().hasClass('previous')){
-            n_page = n_page - 1;
-            if(n_page<1) n_page = 1;
-        }else{
-            n_page = parseInt($(this).html());
-        }
-        window.location.href="<?php echo $url_base; ?>?<?php 
-        if(isset($_GET['page'])){ 
-            unset($_GET['page']); 
-        }
-
-        $param = '';
-        if(!empty($_GET)){
-            foreach($_GET as $key => $val){
-                if(!empty($param))  $param .= '&';
-                $param.=$key.'='.urlencode($val);
-            }
-        }
-            
-        if(!empty($param)){ 
-            $param.='&'; 
-        } 
-        echo $param; 
-        ?>page="+n_page;
-    });
-
-    $('#tabla-affiliates_length select').change(function(e){
-        e.preventDefault();
-        window.location.href="<?php echo $url_base; ?>?<?php 
-        if(isset($_GET['page']))
-            unset($_GET['page']); 
-        if(isset($_GET['p_size']))
-            unset($_GET['p_size']); 
-            
-        $param = '';
-        if(!empty($_GET)){
-            foreach($_GET as $key => $val){
-                if(!empty($param))  $param .= '&';
-                $param.=$key.'='.urlencode($val);
-            }
-        }
-        if(!empty($param)){ 
-            $param.='&'; 
-        } 
-        echo $param; 
-        ?>p_size="+$(this).val();
-    });
-
-    $('#tabla-affiliates_filter input.form-control').keyup(function(e){
-        e.preventDefault();
-        var self = $(this);
-        setTimeout(function(){
-            if($.trim(self.val())!='')
-                window.location.href="<?php echo $url_base; ?>?<?php 
-        if(isset($_GET['page']))
-            unset($_GET['page']); 
-        if(isset($_GET['p_size']))
-            unset($_GET['p_size']); 
-        if(isset($_GET['search']))
-            unset($_GET['search']); 
-            
-        $param = '';
-        if(!empty($_GET)){
-            foreach($_GET as $key => $val){
-                if(!empty($param))  $param .= '&';
-                $param.=$key.'='.urlencode($val);
-            }
-        } 
-        if(!empty($param)){ 
-            $param.='&'; 
-        } 
-        echo $param; 
-        ?>search="+self.val();
-            else    window.location.href="<?php echo $url_base; ?>";
-        }, 2000);
-    });
-
-
-    $('table.table.dt-responsive thead tr th').click(function(e){
-        e.preventDefault();
-        if($(this).hasClass('sorting_desc')) var sorting = 'desc';
-        else var sorting = 'asc';
-        window.location.href="<?php echo $url_base; ?>?<?php 
-        if(isset($_GET['orderby']))
-            unset($_GET['orderby']); 
-        if(isset($_GET['order']))
-            unset($_GET['order']); 
-            
-        $param = '';
-        if(!empty($_GET)){
-            foreach($_GET as $key => $val){
-                if(!empty($param))  $param .= '&';
-                $param.=$key.'='.urlencode($val);
-            }
-        }
-        if(!empty($param)){ 
-            $param.='&'; 
-        } 
-        echo $param; 
-        ?>orderby="+$(this).attr('id').replace('col-', '')+'&order='+sorting;
-    });
-    
+    $('#boton-guardar').click(function(e){ 
+        $('#msj').html('');
+        
        
+        $('#form-affiliate .form-group .required').each(function(){
+            if($(this).val()==''){
+                $('#msj').html('Debes rellenar los campos obligatorios');
+                return false;
+            }
+        });
+
+        if(!validar_email($('#email').val())){
+            $('#msj').html('El email introducido no es correcto');
+            return false;
+        }
+
+        var emails = [<?php foreach($affiliates as $u): if($u['id']!=$affiliate['id']): echo '"'.$u['email'].'",'; endif; endforeach; ?>];
+
+        for(var i=0;i<emails.length;i++){
+            if($('#email').val()==emails[i]){
+                $('#msj').html('El email introducido ya fue utilizado por otro afiliado');
+                return false;
+            }
+        }
+
+        if($('#section_id').hasClass('required')&&$('#section_id').val()==''){
+            $('#msj').html('Debe seleccionar una sección');
+            return false;
+        }
+
+        var numbers = [<?php foreach($affiliates as $u): if($u['id']!=$affiliate['id']): echo '"'.$u['number'].'",'; endif; endforeach; ?>];
+
+        for(var i=0;i<numbers.length;i++){
+            if($('#number').val()==numbers[i]){
+                $('#msj').html('El número de afiliado introducido ya fue utilizado por otro afiliado');
+                return false;
+            }
+        }
+
+        
+
+        if($('#msj').html()!=''){ 
+            e.preventDefault();
+            return false;
+        } 
+        $('#form-affiliate').submit();
+        return true;
     });
+   
+});
 
-    <?php endif; ?>
 </script>
-

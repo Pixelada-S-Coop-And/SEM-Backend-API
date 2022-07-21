@@ -57,8 +57,8 @@
                 <td data-priority="3"><span class="hidden-text"><?php echo $affiliate['affiliation_date']; ?></span><?php echo date('d/m/Y', strtotime($affiliate['affiliation_date'])); ?></td>
                 <td data-priority="3"><?php echo (empty($affiliate['active']))? 'Inactivo' : 'Activo';  ?></td>
                 <td data-priority="1" style="text-align: right;">
-                    <?php if($affiliate['has_session']): ?><a href="<?php echo site_url('admin/affiliates/logout/'.$affiliate['id']); ?>" class="btn btn-primary d-none d-lg-block ml-2">Cerrar sesión</a><?php endif; ?> &nbsp; 
-                    <a href="<?php echo site_url('admin/affiliates/send-pass/'.$affiliate['id']); ?>" class="btn btn-primary d-none d-lg-block ml-2">Enviar clave</a> &nbsp; 
+                    <?php if($affiliate['has_session']): ?><a href="<?php echo site_url('admin/affiliates/logout/'.$affiliate['id']).'?'.$_SERVER['QUERY_STRING']; ?>" class="btn btn-primary d-none d-lg-block ml-2">Cerrar sesión</a><?php endif; ?> &nbsp; 
+                    <a href="<?php echo site_url('admin/affiliates/send-pass/'.$affiliate['id']).'?'.$_SERVER['QUERY_STRING']; ?>" class="btn btn-primary d-none d-lg-block ml-2">Enviar clave</a> &nbsp; 
                     <a class="link-editar" href="<?php echo site_url('admin/affiliates/edit/'.$affiliate['id']); ?>"><i class="fas fa-edit"></i></a> &nbsp; 
                     <a class="link-eliminar" onclick="return confirm('¿Deseas eliminar este afiliado?')" href="<?php echo site_url('admin/affiliates/delete/'.$affiliate['id']); ?>"><i class="fas fa-trash-alt"></i></a>
                 </td>
