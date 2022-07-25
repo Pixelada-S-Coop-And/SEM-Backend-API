@@ -13,7 +13,8 @@
                 <div id="field-active" class="form-group">
                     <input type="hidden" name="active" value="0" />
                     <label>Activo</label> &nbsp; <input type="checkbox" id="active" checked name="active" data-toggle="switchery" data-color="#222222"/> &nbsp; 
-                    <?php if($role==0): ?>&nbsp; <label>Global</label> &nbsp; <input type="checkbox" checked id="global" name="global" data-toggle="switchery" data-color="#222222"/><?php endif; ?>
+                    <?php if($role==0): ?>&nbsp; <label>Global</label> &nbsp; <input type="checkbox" checked id="global" name="global" data-toggle="switchery" data-color="#222222"/><?php endif; ?>  &nbsp; 
+                    <label>Publicar ahora</label> &nbsp; <input type="checkbox" id="now" checked name="now" data-toggle="switchery" data-color="#222222"/> &nbsp; 
                 </div>
                 
                 <div id="sections-field" class="form-group">
@@ -32,10 +33,9 @@
                     </div>
                 </div>
                 
-                
-                <div class="form-group">
+                <div class="form-group datetime-field-group">
                     <label for="time">Fecha y hora de publicación *</label>
-                    <input type="text" id="time" name="time" class="datetime-input form-control required" data-provide="datetimepicker" value="">
+                    <input type="text" id="time" name="time" class="datetime-input form-control" data-provide="datetimepicker" value="">
                 </div>
 
                 <div class="form-group">
@@ -91,8 +91,12 @@ jQuery(function($) {
     }else{
         $('#sections-field').show();
     }
-
     
+    if($('input#now').prop('checked')){
+        $('.datetime-field-group').hide();
+    }else{
+        $('.datetime-field-group').show();
+    }
 
     $('input#global').change(function(){
         if($(this).prop('checked')){
@@ -100,7 +104,19 @@ jQuery(function($) {
         }else{
             $('#sections-field').show();
         }
-    })
+    });
+
+    $('input#now').change(function(){
+        if($(this).prop('checked')){
+            $('.datetime-field-group').hide();
+        }else{
+            $('.datetime-field-group').show();
+        }
+    });
+
+    
+
+
  
     $('#boton-guardar').click(function(e){  
         $('#msj').html('');
@@ -114,6 +130,11 @@ jQuery(function($) {
 
         if(!$('input#global').prop('checked')&&$('#sections-field input:checked').length==0){
             $('#msj').html('Debes seleccionar al menos una sección');
+            return false;
+        }
+
+        if(!$('input#now').prop('checked')&&$('#time').val()==''){
+            $('#msj').html('Debes indicar fecha y hora');
             return false;
         }
 

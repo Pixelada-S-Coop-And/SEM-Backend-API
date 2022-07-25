@@ -614,6 +614,11 @@ class Admin extends CI_Controller {
         $_POST = $this->input->post();
 
         if(!empty($_POST)){
+            if(!empty($_POST['now'])){
+                $_POST['time'] = date('Y-m-d H:i:s', (time()+15));
+            }
+            if(isset($_POST['now']))    unset($_POST['now']);
+
             $id = $this->message_model->new_message($_POST); 
             $message = $this->message_model->message($id);
             
@@ -727,9 +732,10 @@ class Admin extends CI_Controller {
         $_POST = $this->input->post(); 
 
         if(!empty($_POST)){
+            
             $id = $this->section_model->new_section($_POST);
             $this->session->set_flashdata('action_ok', 'Información guardada correctamente.');
-            redirect(site_url('admin/sections/edit/'.$id));
+            //redirect(site_url('admin/sections/edit/'.$id));
             return true;
         }
 
