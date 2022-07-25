@@ -243,6 +243,17 @@ h2.display-6.inline{ display: inline-block;}
     padding: 8px 20px;
 }
 
+#vertical-menu-close-btn {
+	font-size: 24px;
+	position: absolute;
+	right: -5px;
+	top: -15px;
+}
+
+#vertical-menu-btn{
+    font-size: 18px;
+}
+
 @media (max-width:600px){
     .tabla-items th, .tabla-items td{
         display: block !important;

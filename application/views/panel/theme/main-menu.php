@@ -2,7 +2,9 @@
 <div class="vertical-menu">
 
 <div data-simplebar class="h-100">
-
+    <button type="button" class="btn btn-sm mr-2 d-lg-none header-item" id="vertical-menu-close-btn">
+        <i class="feather-x"></i>
+    </button>
     <!-- LOGO -->
     <div class="navbar-brand-box" style="padding:0 0 20px;">
         <a href="<?php echo site_url('admin'); ?>" class="logo">

@@ -25,8 +25,22 @@ jQuery(function($) {
         }
     });
 
-    //DateTimePicker
+
     
+    $(window).resize(function(){
+        if($(window).width()>990){
+            $('#layout-wrapper > .vertical-menu').show();
+        }else{
+            $('#layout-wrapper > .vertical-menu').hide();
+        }
+    });
+    $('#vertical-menu-btn').click(function(){
+        $('#layout-wrapper > .vertical-menu').show();
+
+        $('#vertical-menu-close-btn').click(function(){
+            $('#layout-wrapper > .vertical-menu').hide();
+        });
+    });
     
 });
 
